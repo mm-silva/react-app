@@ -1,18 +1,28 @@
 import React from 'react';
+import  ProdutoService from '../../app/produtoService'
+
+   const  estadoInicial = {
+                nome: '',
+                sku:  '',
+                descricao: '',
+                preco: 0,
+                fornecedor: '',
+		success: false,
+		errors: []          
+                }
+
 
 
 class CadastroProduto extends React.Component {
 
 
-	state = {
-		nome: '',
-		sku:  '',
-		descricao: '',
-		preco: 0,
-		fornecedor: ''		
-		}
+	state  = estadoInicial;
 
-
+	constructor(){
+	    super()
+	this.service = new ProdutoService();
+	
+	}
 	onChange = (event) => {
 	
 		const valor = event.target.value;
@@ -21,9 +31,31 @@ class CadastroProduto extends React.Component {
 		this.setState({ [nomeDoCampo]: valor});	
 	}
 	
-	onSubmit = (event) =>{
+	onSubmit = (event) => {
+	
 		
-		console.log(this.state);
+		const produto = {
+                nome: this.state.nome,
+                sku:   this.state.sku,
+                descricao:  this.state.descricao,
+                preco:  this.state.preco,
+                fornecedor:  this.state.fornecedor,
+                }
+
+		try{
+			
+        	this.service.salvar(produto);
+                this.setState({success: true});
+                this.limparCampos();
+
+		}catch(erro){
+			const  errors = erro.errors;
+		
+			this.setState({errors:errors})
+		 console.log(this.state.errors, errors);
+	
+	}
+	
 	}
 
 	limparCampos = () => {
@@ -32,7 +64,8 @@ class CadastroProduto extends React.Component {
                 sku:  '',
                 descricao: '',
                 preco: 0,
-                fornecedor: ''          
+                fornecedor: '',
+		          
                 }
 );
 	}
@@ -45,8 +78,35 @@ class CadastroProduto extends React.Component {
 			<div className="card-header">
 				Cadastro de Produtos
 			</div>
+
+
+
+
 			<div className="card-body">
-			   <div className="row">
+			{this.state.success &&
+                        (<div class="alert alert-dismissible alert-success">
+                               <button type="button" class="close" data-dismiss="alert">&times;</button>
+  					<strong>Bom trabalho!</strong> <a href="#" class="alert-link">Seu produto foi cadastrado</a>
+					   </div>) 
+
+                                } 
+
+		 
+
+			{this.state.errors.length > 0 &&
+				this.state.errors.map(msg => {
+					return  (
+				<div class="alert alert-dismissible alert-danger">
+  					<button type="button" class="close" data-dismiss="alert">&times;</button>
+  					<strong>Erro!</strong> <a href="#" class="alert-link">{msg}</a>
+				</div>)
+				}) 
+			}
+
+ 
+			
+			 <div className="row">
+
 		            <div className="col-md-6"> 
 			    <div className="form-group"> 
 			   	<div className="label">

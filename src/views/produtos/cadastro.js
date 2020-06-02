@@ -86,7 +86,7 @@ class CadastroProduto extends React.Component {
 			{this.state.success &&
                         (<div class="alert alert-dismissible alert-success">
                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-  					<strong>Bom trabalho!</strong> <a href="#" class="alert-link">Seu produto foi cadastrado</a>
+  					<strong>Bom trabalho!!!</strong> <a href="#" class="alert-link">Seu produto foi cadastrado</a>
 					   </div>) 
 
                                 } 

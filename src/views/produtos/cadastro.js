@@ -1,6 +1,8 @@
 import React from 'react';
 import  ProdutoService from '../../app/produtoService'
 import { withRouter } from 'react-router-dom';
+import Card  from '../../components/card';
+
 
    const  estadoInicial = {
                 nome: '',
@@ -89,16 +91,9 @@ class CadastroProduto extends React.Component {
 
 	render(){
 	   return (
-		<div className="card">
-			<div className="card-header">
-				{this.state.atualizando ? "Atualizando Produto" : "Cadastro de Produtos "}
-				
-			</div>
+		<Card header={this.state.atualizando ? "Atualizando Produto" : "Cadastro de Produtos "}>
+	
 
-
-
-
-			<div className="card-body">
 			{this.state.success &&
                         (<div class="alert alert-dismissible alert-success">
                                <button type="button" className="close" data-dismiss="alert">&times;</button>
@@ -185,8 +180,8 @@ class CadastroProduto extends React.Component {
                                 </div>
   			   </div>
 				 </form>
-			</div>
-		</div>
+		
+		</Card>
          	);
 	}
 

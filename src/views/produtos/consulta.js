@@ -1,6 +1,7 @@
 import React from 'react';
 import ProdutoService from '../../app/produtoService';
 import { withRouter } from 'react-router-dom';
+import Card from '../../components/card';
 
  class ConsultaProduto extends React.Component {
 
@@ -32,10 +33,8 @@ import { withRouter } from 'react-router-dom';
 			
 		
 		return (
-		<div className="card">
-                        <div className="card-header">
-                                Consulta de Produtos
-                        </div>
+		<Card header="Consulta de Produtos">
+                      
 		<table className="table table-hover">
 		   <thead>
 		     <tr>
@@ -66,7 +65,7 @@ import { withRouter } from 'react-router-dom';
 			}		      
 		    </tbody>
 		</table>	
-		</div>
+		</Card>
 		);
 	
 

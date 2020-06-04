@@ -34,7 +34,7 @@ class CadastroProduto extends React.Component {
 	}
 	
 	onSubmit = (event) => {
-	
+		event.preventDefault()
 		
 		const produto = {
                 nome: this.state.nome,
@@ -117,7 +117,7 @@ class CadastroProduto extends React.Component {
 				}) 
 			}
 
- 
+			<form if="frmProduto" onSubmit={this.onSubmit}>
 			
 			 <div className="row">
 
@@ -174,7 +174,7 @@ class CadastroProduto extends React.Component {
 				
 			  <div className="row">
 			  	<div className="col-md-1">
-				  <button onClick={this.onSubmit} className="btn btn-success">
+				  <button type="submit" className="btn btn-success">
 				{this.state.atualizando ? "Atualizar" : " Salvar"}
   				  </button>
 				</div>
@@ -184,6 +184,7 @@ class CadastroProduto extends React.Component {
                                   </button>
                                 </div>
   			   </div>
+				 </form>
 			</div>
 		</div>
          	);

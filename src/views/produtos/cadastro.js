@@ -9,7 +9,8 @@ import { withRouter } from 'react-router-dom';
                 preco: 0,
                 fornecedor: '',
 		success: false,
-		errors: []          
+		errors: [],
+		atualizando: false      
                 }
 
 
@@ -78,7 +79,7 @@ class CadastroProduto extends React.Component {
 			
 			if(resultado.length > 0){ 
 				const produtoEncontrado = resultado[0];
-				this.setState({ ...produtoEncontrado});
+				this.setState({ ...produtoEncontrado, atualizando: true});
 			}
 			
 		}
@@ -90,7 +91,8 @@ class CadastroProduto extends React.Component {
 	   return (
 		<div className="card">
 			<div className="card-header">
-				Cadastro de Produtos
+				{this.state.atualizando ? "Atualizando Produto" : "Cadastro de Produtos "}
+				
 			</div>
 
 
@@ -133,7 +135,7 @@ class CadastroProduto extends React.Component {
                                 <div className="label">
                                 SKU: *
                                 </div> 
-                                <input type="text" value={this.state.sku} name="sku" onChange={this.onChange} className="form-control"/>
+                                <input type="text" value={this.state.sku} disabled={this.state.atualizando ? true : false} name="sku" onChange={this.onChange} className="form-control"/>
                              </div>             
                              </div>
 
@@ -173,7 +175,7 @@ class CadastroProduto extends React.Component {
 			  <div className="row">
 			  	<div className="col-md-1">
 				  <button onClick={this.onSubmit} className="btn btn-success">
-				  Salvar
+				{this.state.atualizando ? "Atualizar" : " Salvar"}
   				  </button>
 				</div>
 			   <div className="col-md-1">

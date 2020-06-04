@@ -23,6 +23,11 @@ import { withRouter } from 'react-router-dom';
 			console.log(`sku para editar: ${sku}`);
 		}
 		
+		deletar = (sku) => {
+			const produtos = this.services.deletar(sku);
+			this.setState({ produtos });
+		}
+
 		render() {
 			
 		
@@ -52,7 +57,7 @@ import { withRouter } from 'react-router-dom';
  				 <td>{produto.fornecedor}</td>
 				  <td>
 					<button onClick={ () => this.preparaEditar(produto.sku)} className="btn btn-primary">Editar</button>
-					<button className="btn btn-danger">Deletar</button>
+					<button onClick={ () => this.deletar(produto.sku)} className="btn btn-danger">Deletar</button>
 				  </td>
 				</tr>
 				

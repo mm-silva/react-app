@@ -1,5 +1,6 @@
 import React from 'react';
 import  ProdutoService from '../../app/produtoService'
+import { withRouter } from 'react-router-dom';
 
    const  estadoInicial = {
                 nome: '',
@@ -52,7 +53,7 @@ class CadastroProduto extends React.Component {
 			const  errors = erro.errors;
 		
 			this.setState({errors:errors})
-		 console.log(this.state.errors, errors);
+		 console.log(this.state);
 	
 	}
 	
@@ -70,6 +71,19 @@ class CadastroProduto extends React.Component {
 );
 	}
 
+	componentDidMount(){
+		const sku = this.props.match.params.sku;
+		if(sku){
+			const resultado = this.service.obterProdutos().filter(produto => produto.sku == sku)
+			
+			if(resultado.length > 0){ 
+				const produtoEncontrado = resultado[0];
+				this.setState({ ...produtoEncontrado});
+			}
+			
+		}
+
+	}
 
 
 	render(){
@@ -85,15 +99,13 @@ class CadastroProduto extends React.Component {
 			<div className="card-body">
 			{this.state.success &&
                         (<div class="alert alert-dismissible alert-success">
-                               <button type="button" class="close" data-dismiss="alert">&times;</button>
-  					<strong>Bom trabalho!!!</strong> <a href="#" class="alert-link">Seu produto foi cadastrado</a>
+                               <button type="button" className="close" data-dismiss="alert">&times;</button>
+  					<strong>Bom trabalho!!!</strong> <a href="#" className="alert-link">Seu produto foi cadastrado</a>
 					   </div>) 
 
                                 } 
 
-		 
-
-			{this.state.errors.length > 0 &&
+		{this.state.errors.length > 0 &&
 				this.state.errors.map(msg => {
 					return  (
 				<div class="alert alert-dismissible alert-danger">
@@ -179,4 +191,4 @@ class CadastroProduto extends React.Component {
 }
 
 
-export default CadastroProduto;
+export default withRouter(CadastroProduto);
